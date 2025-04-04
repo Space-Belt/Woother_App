@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         val temp = arrayOf("")
 
         search.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Button Clicked! ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, "버튼 클릭! ", Toast.LENGTH_SHORT).show()
             val city = cityName.text.toString()
             try {
                 if (city.isNotEmpty()) {
@@ -59,8 +59,12 @@ class MainActivity : AppCompatActivity() {
                 temp[0] = task.execute(url).get()
             } catch (e: ExecutionException) {
                 e.printStackTrace()
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
             }
-
+            if (temp[0] == null) {
+                show.text = "날씨를 찾을수 없습니다."
+            }
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
